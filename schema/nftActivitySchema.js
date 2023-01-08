@@ -1,8 +1,7 @@
 import { gql } from "apollo-server-express";
-import abi from "../Contracts/Abi/abi.json" assert { type: "json" };
-import Web3 from "web3";
 
-const CONTRACT_ADDRESS = "0xbd5fb504d4482ef4366dfa0c0edfb85ed50a9bbb";
+import Web3 from "web3";
+import { Abi } from "../Contracts/Abi/ABI.js";
 
 export const nftActivityTypeDefs = gql`
   type ReturnValues {
@@ -39,7 +38,7 @@ export const nftActivityResolvers = {
 
       const web3_ = new Web3(RPC_URL);
 
-      const contract = new web3_.eth.Contract(abi, args.contractAddress);
+      const contract = new web3_.eth.Contract(Abi, args.contractAddress);
       let response = [];
       await contract
         .getPastEvents("Transfer", {
